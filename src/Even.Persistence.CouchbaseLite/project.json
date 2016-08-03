@@ -1,0 +1,14 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "Couchbase.Lite": "1.2.1.1",
+    "Even": "0.1.1",
+    "Equals.Fody": "1.6.2"
+  },
+  "frameworks": {
+    "net451": {} 
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

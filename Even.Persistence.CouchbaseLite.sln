@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{221B04E2-BABB-4781-AF0D-A184A0EBB557}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Even.Persistence.CouchbaseLite", "src\Even.Persistence.CouchbaseLite\Even.Persistence.CouchbaseLite.csproj", "{6B2BE13A-ADC3-4654-B819-31AE8D0D0E3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{8DD26B40-8225-4CD1-9F4F-80CE3D743CE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Even.Persistence.CouchbaseLite.Tests", "test\Even.Persistence.CouchbaseLite.Tests\Even.Persistence.CouchbaseLite.Tests.csproj", "{6AD392DC-56CE-4E18-8767-12C85B6AF369}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B2BE13A-ADC3-4654-B819-31AE8D0D0E3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B2BE13A-ADC3-4654-B819-31AE8D0D0E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B2BE13A-ADC3-4654-B819-31AE8D0D0E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B2BE13A-ADC3-4654-B819-31AE8D0D0E3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD392DC-56CE-4E18-8767-12C85B6AF369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD392DC-56CE-4E18-8767-12C85B6AF369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD392DC-56CE-4E18-8767-12C85B6AF369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD392DC-56CE-4E18-8767-12C85B6AF369}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AD392DC-56CE-4E18-8767-12C85B6AF369} = {8DD26B40-8225-4CD1-9F4F-80CE3D743CE3}
+	EndGlobalSection
+EndGlobal

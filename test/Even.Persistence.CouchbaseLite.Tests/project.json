@@ -1,0 +1,19 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "Couchbase.Lite": "1.2.1.1",
+    "xunit": "2.1.0",
+    "xunit.runner.visualstudio": "2.1.0",
+    "Specify": "1.0.0",
+    "FluentAssertions": "4.12.0",
+    "NSubstitute": "1.10.0",
+    "AutoFixture": "3.49.0",
+    "Akka.TestKit.Xunit2": "1.1.1"
+  },
+  "frameworks": {
+    "net451": {} 
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

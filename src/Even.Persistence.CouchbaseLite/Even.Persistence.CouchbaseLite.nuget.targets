@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(NuGetPackageRoot)' == ''">
+    <NuGetPackageRoot>$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+  </PropertyGroup>
+  <ImportGroup>
+    <Import Project="$(NuGetPackageRoot)\Equals.Fody\1.6.2\build\dotnet\Equals.Fody.targets" Condition="Exists('$(NuGetPackageRoot)\Equals.Fody\1.6.2\build\dotnet\Equals.Fody.targets')" />
+    <Import Project="$(NuGetPackageRoot)\Fody\1.29.2\build\dotnet\Fody.targets" Condition="Exists('$(NuGetPackageRoot)\Fody\1.29.2\build\dotnet\Fody.targets')" />
+    <Import Project="$(NuGetPackageRoot)\SQLitePCL.raw\0.8.6\build\net45\SQLitePCL.raw.targets" Condition="Exists('$(NuGetPackageRoot)\SQLitePCL.raw\0.8.6\build\net45\SQLitePCL.raw.targets')" />
+  </ImportGroup>
+</Project>
