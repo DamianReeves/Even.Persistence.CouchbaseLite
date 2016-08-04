@@ -1,8 +1,10 @@
 ﻿using System;
 using Akka.TestKit.Xunit2;
 using Couchbase.Lite;
+using Even.Persistence.CouchbaseLite.Internals;
 using Even.Persistence.CouchbaseLite.Testing;
 using FluentAssertions;
+using NSubstitute;
 using Xunit;
 
 namespace Even.Persistence.CouchbaseLite
@@ -16,7 +18,7 @@ namespace Even.Persistence.CouchbaseLite
             using (var db = TestingUtility.GetDatabaseForCaller())
             {
                 Assert
-                        .Throws<ArgumentNullException>(() => new CouchbaseLiteStore(null, db))
+                        .Throws<ArgumentNullException>(() => new CouchbaseLiteStore(null, db, Substitute.For<ISequenceGenerator>()))
                         .ParamName.Should().Be("actorSystem");
             }                
         }
@@ -26,7 +28,7 @@ namespace Even.Persistence.CouchbaseLite
         {
             using (var db = TestingUtility.GetDatabaseForCaller())
             {
-                var store = new CouchbaseLiteStore(Sys, db);
+                var store = new CouchbaseLiteStore(Sys, db, Substitute.For<ISequenceGenerator>());
                 store.Sys.Should().BeSameAs(Sys);
             }                
         }
@@ -35,7 +37,7 @@ namespace Even.Persistence.CouchbaseLite
         public void When_constructing_database_is_required()
         {
             Assert
-                .Throws<ArgumentNullException>(() => new CouchbaseLiteStore(Sys, null))
+                .Throws<ArgumentNullException>(() => new CouchbaseLiteStore(Sys, null, Substitute.For<ISequenceGenerator>()))
                 .ParamName.Should().Be("db");
         }
 
@@ -44,7 +46,7 @@ namespace Even.Persistence.CouchbaseLite
         {
             using (var db = TestingUtility.GetDatabaseForCaller())
             {
-                var store = new CouchbaseLiteStore(Sys, db);
+                var store = new CouchbaseLiteStore(Sys, db, Substitute.For<ISequenceGenerator>());
                 store.Db.Should().BeSameAs(db);
             }                
         }

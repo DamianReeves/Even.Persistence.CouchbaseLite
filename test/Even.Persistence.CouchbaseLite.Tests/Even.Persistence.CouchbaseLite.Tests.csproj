@@ -42,10 +42,19 @@
   <ItemGroup>
     <Compile Include="CouchbaseLiteStoreTests.cs" />
     <Compile Include="CouchbaseLiteStore_ConstructionSpecs.cs" />
-    <Compile Include="MonotonicallyIncreasingSequenceSpecs.cs" />
-    <Compile Include="MonotonicallyIncreasingSequence_Construction_Tests.cs" />
+    <Compile Include="Internals\EventRepositoryScenario.cs" />
+    <Compile Include="Internals\EventRepository_when_getting_an_event_that_was_saved_by_event_id.cs" />
+    <Compile Include="Internals\EventRepository_when_writing_an_event_with_a_sequence_number_of_0.cs" />
+    <Compile Include="Internals\MonotonicallyIncreasingSequenceSpecs.cs" />
+    <Compile Include="Internals\MonotonicallyIncreasingSequence_Construction_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Testing\EventGenerator.cs" />
     <Compile Include="Testing\EventStoreTests.cs" />
+    <Compile Include="Testing\Mocks\MockSequenceGenerator.cs" />
+    <Compile Include="Testing\SpecifyBootstrapper.cs" />
+    <Compile Include="Testing\TestMessages\CounterIncremented.cs" />
+    <Compile Include="Testing\TestMessages\SomethingHappened.cs" />
+    <Compile Include="Testing\ScenarioFor.cs" />
     <Compile Include="Testing\TestingUtility.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +69,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

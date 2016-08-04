@@ -41,10 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CouchbaseLiteStore.cs" />
-    <Compile Include="CouchbaseLiteStoreActor.cs" />
+    <Compile Include="Internals\CouchbaseLiteStoreMaster.cs" />
+    <Compile Include="Internals\EventRepository.cs" />
+    <Compile Include="Internals\IEventRepository.cs" />
+    <Compile Include="Internals\ISequenceGenerator.cs" />
+    <Compile Include="Internals\SequenceRange.cs" />
     <Compile Include="Messages\Commands.cs" />
     <Compile Include="Messages\Events.cs" />
-    <Compile Include="MonotonicallyIncreasingSequence.cs" />
+    <Compile Include="Internals\MonotonicallyIncreasingSequence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

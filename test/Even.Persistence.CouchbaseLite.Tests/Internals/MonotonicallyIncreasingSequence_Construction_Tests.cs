@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Akka.Actor;
-using Akka.TestKit.Xunit2;
-using Couchbase.Lite;
+﻿using Akka.TestKit.Xunit2;
 using Even.Persistence.CouchbaseLite.Messages;
 using Even.Persistence.CouchbaseLite.Testing;
 using FluentAssertions;
-using TestStack.BDDfy;
 using Xunit;
 
-namespace Even.Persistence.CouchbaseLite
+namespace Even.Persistence.CouchbaseLite.Internals
 {
     public class MonotonicallyIncreasingSequence_Construction_Tests : TestKit
     {        

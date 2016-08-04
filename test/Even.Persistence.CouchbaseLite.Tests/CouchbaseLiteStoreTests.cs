@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Couchbase.Lite;
+using Even.Persistence.CouchbaseLite.Internals;
 using Even.Persistence.CouchbaseLite.Testing;
 using Ploeh.AutoFixture;
 
@@ -9,6 +10,7 @@ namespace Even.Persistence.CouchbaseLite
     {
         public string DbName { get; private set; }
         public Database Db { get; private set; }
+        public ISequenceGenerator Sequence { get; private set; }
 
         public CouchbaseLiteStoreTests()
         {
@@ -16,10 +18,12 @@ namespace Even.Persistence.CouchbaseLite
         }
         protected override IEventStore CreateStore()
         {
-            var fixture = new Fixture();
             var dbName = $"even-tests-{nameof(CouchbaseLiteStoreTests)}".ToLowerInvariant();
+
             var db = Manager.SharedInstance.GetDatabase(dbName);
-            return new CouchbaseLiteStore(Sys, db);
+            var sequence = Sys.ActorOf(MonotonicallyIncreasingSequence.CreateProps(db));
+            Sequence = new DefaultSequenceGenerator(sequence);
+            return new CouchbaseLiteStore(Sys, db, Sequence);
         }
 
         protected override void ResetStore()
