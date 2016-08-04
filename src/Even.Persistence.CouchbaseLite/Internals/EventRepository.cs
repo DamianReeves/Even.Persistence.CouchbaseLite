@@ -29,7 +29,7 @@ namespace Even.Persistence.CouchbaseLite.Internals
 
         public async Task<long> WriteEvent(IUnpersistedRawEvent @event)
         {            
-            var documentId = $"event:{@event.EventID}";
+            var documentId = GetEventDocumentId(@event);
             var document = Db.GetExistingDocument(documentId);
             if (document != null)
             {
@@ -50,7 +50,7 @@ namespace Even.Persistence.CouchbaseLite.Internals
             props.eventId = @event.EventID;
             props.globalSequence = @event.GlobalSequence;
             props.payloadFormat = @event.PayloadFormat;
-            props.utcTimeStamp = @event.UtcTimestamp;
+            props.utcTimestamp = @event.UtcTimestamp;
 
             var eventWithStream = @event as IUnpersistedRawStreamEvent;
             if (eventWithStream?.Stream != null)
@@ -138,23 +138,54 @@ namespace Even.Persistence.CouchbaseLite.Internals
             return Task.FromResult(streamId);
         }
 
-        public async Task<PersistedRawEvent> GetEvent(Guid eventId)
+        public Task<PersistedRawEvent> GetEvent(Guid eventId)
         {
-            var query = EventsByEventId.CreateQuery();
-            query.StartKey = eventId;
-            query.EndKey = eventId;
-            query.Limit = 1;
-            var results = await query.RunAsync();
-            var row = results.SingleOrDefault();
+            var documentId = GetEventDocumentId(eventId);
+            var document = Db.GetExistingDocument(documentId);
+            if (document == null)
+            {
+                return Task.FromResult(default(PersistedRawEvent));
+            }
 
-            var evt = new PersistedRawEvent();
-            dynamic props = row.AsJSONDictionary();
-            evt.GlobalSequence = props.globalSequence;
-            evt.EventID = props.eventId;
-            evt.EventType = props.eventType;
-            evt.PayloadFormat = props.payloadFormat;
-            evt.UtcTimestamp = props.utcTimestamp;
-            return evt;
+            var @event = new PersistedRawEvent();
+            @event.GlobalSequence = document.GetProperty<long>("globalSequence");
+            @event.EventID = Guid.Parse(document.GetProperty<string>("eventId"));
+            @event.EventType = document.GetProperty<string>("eventType");
+            @event.PayloadFormat = document.GetProperty<int>("payloadFormat");
+            var timestamp = document.GetProperty<DateTime>("utcTimestamp");
+            @event.UtcTimestamp = timestamp;
+            @event.UtcTimestamp = DateTime.SpecifyKind(@event.UtcTimestamp, DateTimeKind.Utc);
+            @event.Payload = document.GetProperty<byte[]>("payload");
+            @event.Metadata = document.GetProperty<byte[]>("metadata");
+
+            var streamId = document.GetProperty<string>("streamId");
+            if (!string.IsNullOrEmpty(streamId))
+            {
+                var streamDoc = Db.GetExistingDocument(streamId);
+                if (streamDoc != null)
+                {
+                    var streamName = streamDoc.GetProperty<string>("name");
+                    var originalName = streamDoc.GetProperty<string>("originalStreamName");
+                    var hash = streamDoc.GetProperty<byte[]>("hash");
+                    @event.Stream = new Stream(new Stream(streamName), originalName);
+                }
+            }
+            return Task.FromResult(@event);
+        }
+
+        private string GetEventDocumentId(IUnpersistedRawEvent @event)
+        {
+            return GetEventDocumentId(@event.EventID);
+        }
+
+        private string GetEventDocumentId(IPersistedEvent @event)
+        {
+            return GetEventDocumentId(@event.EventID);
+        }
+
+        private string GetEventDocumentId(Guid eventId)
+        {
+            return $"event:{eventId}";
         }
 
         private void InitializeViews()

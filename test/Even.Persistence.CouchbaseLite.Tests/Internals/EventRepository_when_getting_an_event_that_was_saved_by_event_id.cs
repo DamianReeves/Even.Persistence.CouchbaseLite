@@ -22,11 +22,21 @@ namespace Even.Persistence.CouchbaseLite.Internals
         {
             RetrievedEvent = await SUT.GetEvent(Event.EventID);
             Logger.Debug("Retrieved an event: {@RetrievedEvent}", RetrievedEvent);
+
+            var document = Db.GetExistingDocument($"event:{Event.EventID}");
+            document.Should().NotBeNull();
+            Logger.Debug("Returned document with properties {@properties}", document.Properties);
+            Logger.Debug("Returned document with user properties {@userProperties}", document.UserProperties);
         }
 
         public void Then_the_retrieved_event_should_not_be_null()
         {
             RetrievedEvent.Should().NotBeNull();
+        }
+
+        public void And_the_payload_should_be_the_payload_that_was_saved()
+        {
+            RetrievedEvent.Payload.Should().Equal(Event.Payload);
         }
     }
 }
